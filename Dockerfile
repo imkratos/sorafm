@@ -4,7 +4,8 @@ FROM node:alpine AS deps
 RUN apk add --no-cache libc6-compat pnpm
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm config set registry https://registry.npmmirror.com 
+RUN pnpm config set registry https://registry.npmmirror.com && \
+  pnpm install
 
 # Rebuild the source code only when needed
 FROM node:alpine AS builder
@@ -12,7 +13,6 @@ WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 RUN pnpm install 
-
 
 # Production image, copy all the files and run next
 FROM node:alpine AS runner
