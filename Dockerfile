@@ -15,7 +15,6 @@ RUN pnpm install
 
 ENV POSTGRES_URL=postgres://USER:PASSWORD@HOST/DB
 ENV WEB_BASE_URI=http://localhost:3000
-ENV key=value
 ENV PORT 3000
 
 
